@@ -1,5 +1,6 @@
 const url = 'https://api-go-wash-efc9c9582687.herokuapp.com/api/user';
 
+// teste
 async function cadastroUsuario(){   
     var name = document.getElementById('name');     
     let resposta = await fetch(url,{
