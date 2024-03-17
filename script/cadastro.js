@@ -7,6 +7,55 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
+// Função para validar o formato de CPF
+function validaCpf(cpf) {
+  cpf = cpf.replace(/[^\d]+/g, ''); // Remove non-numeric characters
+  if (cpf.length !== 11) return false; // Invalid length
+
+  // Validate the CPF structure
+  let sum = 0;
+  for (let i = 1; i <= 9; i++) {
+    sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+  }
+  let rest = (sum * 10) % 11;
+  if (rest === 10 || rest === 11) {
+    rest = 0;
+  }
+  if (rest !== parseInt(cpf.substring(9, 10))) {
+    return false;
+  }
+
+  sum = 0;
+  for (let i = 1; i <= 10; i++) {
+    sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+  }
+  let rest2 = (sum * 10) % 11;
+  if (rest2 === 10 || rest2 === 11) {
+    rest2 = 0;
+  }
+  if (rest2 !== parseInt(cpf.substring(10, 11))) {
+    return false;
+  }
+
+  return true;
+}
+
+// Função para validar o formato de CPF/CNPJ
+function isValidCpfCnpj(cpfCnpj) {
+  // Validar CPF
+  if (cpfCnpj.length === 11) {
+    return validaCpf(cpfCnpj);
+  }
+
+  // Validar CNPJ
+  if (cpfCnpj.length === 14) {
+    // Implementar a validação de CNPJ
+    return true; // Temporariamente retornando true, você deve implementar a lógica de validação do CNPJ
+  }
+
+  return false;
+}
+
 // Função assíncrona para realizar o cadastro do usuário
 async function cadastroUsuario() {
   // Obtendo os elementos de input pelos seus IDs
@@ -27,6 +76,12 @@ async function cadastroUsuario() {
     return;
   }
 
+  // Verificando o formato do CPF/CNPJ
+  if (!isValidCpfCnpj(cpf_cnpj.value)) {
+    alert('Por favor, insira um CPF/CNPJ válido.');
+    return;
+  }
+
   // Criando o objeto com os dados do usuário
   const userData = {
     name: name.value,
@@ -38,32 +93,39 @@ async function cadastroUsuario() {
     birthday: '2000-10-12',
   };
 
+  // Get the error message element
+  const errorMessage = document.getElementById('error-message');
+
   // Realizando uma requisição POST para a URL da API
   try {
     const response = await fetch(url, {
       method: 'POST',
-      // Enviando os dados do usuário em formato JSON no corpo da requisição
       body: JSON.stringify(userData),
-      // Especificando o tipo de conteúdo como JSON no cabeçalho da requisição
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    // Extraindo os dados da resposta da API no formato JSON
-    const data = await response.json();
-
-    // Verificando se o cadastro foi bem-sucedido (statusCode 200)
-    if (data.data.statusCode !== 200) {
-      // Exibindo uma mensagem de alerta com o erro específico (no caso, relacionado ao campo cpf_cnpj)
-      alert(data.data.errors?.cpf_cnpj[0]);
-      return;
+    // Verificando se a resposta é bem-sucedida
+    if (response.ok) {
+      // Redirecionar para a página de login
+      window.location.href = 'login.html';
+    } else {
+      // Verificar se o código de status é 422 (Unprocessable Entity)
+      if (response.status === 422) {
+        // Extraindo os dados da resposta da API no formato JSON
+        const data = await response.json();
+        // Exibir a mensagem de erro retornada pelo servidor
+        errorMessage.textContent = 'Erro no cadastro: ' + data.error.message;
+      } else {
+        // Exibir a mensagem de erro genérica
+        errorMessage.textContent = 'Erro na requisição: ' + response.statusText;
+      }
+      errorMessage.style.display = 'block';
     }
-
-    // Se o cadastro foi bem-sucedido, exibe uma mensagem de sucesso
-    alert('Cadastro realizado com sucesso!');
   } catch (error) {
-    console.error(error);
-    alert('Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.');
+    // Exibir a mensagem de erro
+    errorMessage.textContent = 'Erro na requisição: ' + error.message;
+    errorMessage.style.display = 'block';
   }
-} 
+}
