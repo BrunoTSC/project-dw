@@ -1,38 +1,54 @@
-body{
-  background-color: blueviolet;  
-  margin: 0;
-  color: white;
+* {
+  box-sizing: border-box;
 }
 
+*{
+  padding: 0;
+  margin: 0;
+}
 a, ul {
-  color: white;
+  color: rgb(0, 0, 0);
   list-style: none;
   text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
 }
 
+body{
+  background-color: aliceblue;
+}
 header > ul {
   display: flex;
   padding: 10px;  
 }
 
+body{
+  margin-bottom: 100px;
+}
+
 li{
   margin-left: 20px;  
 }
-.container{
+
+/* .container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 10vh 70vh 20vh;
-}
+
+} */
 
 header{
+  height:60px;
+  background: url('https://www.shutterstock.com/image-photo/silver-white-bokeh-lights-defocused-260nw-544773031.jpg');
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background-color: brown;  
+  background-color: rgb(49, 49, 49);  
   grid-column: 1/4;
-  padding: 10px;  
+  padding: 5px;
+  flex-wrap: wrap;
 }
-main{
+/* main{
   background-color: chartreuse;  
 }
 aside{
@@ -42,6 +58,85 @@ aside{
   grid-template-columns: 1fr 1fr;
 }
 footer{
-  background-color: rgb(246, 9, 9);
-  grid-column: 1/4;
+  background-color: rgb(53, 53, 53);
+  grid-column: 1/3;
+} */
+
+.menu{
+  display: flex;
 }
+
+
+.menu li{
+  margin-left: 5px;
+}
+
+.menu li a{
+  display: block;
+  padding: 10px;
+}
+
+h1{
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  max-width: 780px;
+  margin: auto;
+  margin-top: 80px;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex > div{
+  flex:1 1 200px;
+  margin: 10px;
+  
+}
+/*css grid1*/
+
+.grid1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 780px;
+  padding: 10px;
+  grid-gap: 20px;
+  margin: 10 auto;
+}
+
+.grid1 > div:nth-child(n + 1){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  align-items: center;
+}
+
+.grid1 > div.anuncio{
+  grid-column: 3;
+  grid-row: 1 / 5;
+  display: block;
+}
+
+.grid1 > div.anuncio{
+  grid-column: auto;
+  grid-row: auto;
+  order: -1;
+}
+
+@media (max-width: 600px){
+  .grid1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid1 > div:nth-child(n + 4){
+    display: block;
+  }
+}
+
