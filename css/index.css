@@ -17,17 +17,19 @@ a, ul {
 body{
   background-color: aliceblue;
 }
+
 header > ul {
   display: flex;
-  padding: 10px;  
+  padding: 10px;
 }
 
 body{
   margin-bottom: 100px;
+  background-image: linear-gradient( rgb(249, 252, 253) ,rgb(5, 172, 172));
 }
 
 li{
-  margin-left: 20px;  
+  margin-left: 10px;  
 }
 
 /* .container{
@@ -38,16 +40,47 @@ li{
 } */
 
 header{
-  height:60px;
-  background: url('https://www.shutterstock.com/image-photo/silver-white-bokeh-lights-defocused-260nw-544773031.jpg');
-  align-items: center;
+  height:120px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  background-color: rgb(49, 49, 49);  
+  background-image: linear-gradient(rgb(5, 172, 172));
   grid-column: 1/4;
   padding: 5px;
   flex-wrap: wrap;
+  box-shadow: 1px 1px 10px black;
 }
+
+.containerlogo {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  width: 100px;
+  border-radius: 100%;
+  margin: 5px;
+}
+
+.containerpesquisa{
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 25px;
+  padding-right: 10px;
+}
+
+#pesquisa{
+  width: 500px;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+}
+
+#iconelupa{
+  width: 25px;
+  height: 25px;
+}
+
 /* main{
   background-color: chartreuse;  
 }
@@ -131,6 +164,12 @@ img{
   order: -1;
 }
 
+@media (max-width: 530px){
+  header {
+    height: 150px;
+  }
+}
+
 @media (max-width: 600px){
   .grid1 {
     grid-template-columns: repeat(2, 1fr);
@@ -139,4 +178,5 @@ img{
     display: block;
   }
 }
+
 
