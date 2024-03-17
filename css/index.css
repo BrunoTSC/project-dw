@@ -81,6 +81,10 @@ header{
   height: 25px;
 }
 
+#iconelupa:hover{
+  cursor: pointer;
+}
+
 /* main{
   background-color: chartreuse;  
 }
@@ -107,6 +111,10 @@ footer{
 .menu li a{
   display: block;
   padding: 10px;
+}
+
+.menu li a:hover{
+  color: rgb(21, 178, 189);
 }
 
 h1{
