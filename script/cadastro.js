@@ -129,3 +129,4 @@ async function cadastroUsuario() {
     errorMessage.style.display = 'block';
   }
 }
+// teste
