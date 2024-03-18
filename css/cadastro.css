@@ -1,17 +1,16 @@
 body{
-    background-color: white;
+    background-image: linear-gradient( rgb(249, 252, 253) ,rgb(5, 172, 172));
     color: black;
 }
 
 .form {
     display: grid;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
     margin: 0 auto;
     max-width: 500px;        
     grid-gap: 20px;  
-        
+    padding-bottom: 200px;
 }
-
 
 input[type=text], select {
     width: 100%;
@@ -32,6 +31,3 @@ input[type=button] {
     border-radius: 4px;
     cursor: pointer;
 }
-  
-
-  
