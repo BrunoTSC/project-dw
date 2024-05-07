@@ -1,5 +1,5 @@
 // Definindo a URL da API para cadastro de usuários
-const url = 'https://api-go-wash-efc9c9582687.herokuapp.com/api/user';
+const url = 'https://go-wash-api.onrender.com/api/user';
 
 // Função para validar o formato de e-mail
 function isValidEmail(email) {
@@ -9,10 +9,10 @@ function isValidEmail(email) {
 
 // Função para validar o formato de CPF
 function validaCpf(cpf) {
-  cpf = cpf.replace(/[^\d]+/g, ''); // Remove non-numeric characters
-  if (cpf.length !== 11) return false; // Invalid length
+  cpf = cpf.replace(/[^\d]+/g, ''); 
+  if (cpf.length !== 11) return false; 
 
-  // Validate the CPF structure
+  // Estrutura de Validação de CPF / CNPJ
   let sum = 0;
   for (let i = 1; i <= 9; i++) {
     sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
@@ -87,14 +87,11 @@ async function cadastroUsuario() {
     name: name.value,
     email: email.value,
     user_type_id: user_type.value,
-    password: '123456', // verificar senha
+    password: document.getElementById('password').value, 
     cpf_cnpj: cpf_cnpj.value,
     terms: 1,
-    birthday: '2000-10-12',
+    birthday: document.getElementById('birthday').value
   };
-
-  // Get the error message element
-  const errorMessage = document.getElementById('error-message');
 
   // Realizando uma requisição POST para a URL da API
   try {
@@ -111,22 +108,18 @@ async function cadastroUsuario() {
       // Redirecionar para a página de login
       window.location.href = 'login.html';
     } else {
-      // Verificar se o código de status é 422 (Unprocessable Entity)
-      if (response.status === 422) {
-        // Extraindo os dados da resposta da API no formato JSON
-        const data = await response.json();
-        // Exibir a mensagem de erro retornada pelo servidor
-        errorMessage.textContent = 'Erro no cadastro: ' + data.error.message;
+      // Extraindo os dados da resposta da API no formato JSON
+      const data = await response.json();
+
+      // Verificar se a resposta possui uma mensagem de erro
+      if (data && data.error && data.error.message) {
+        alert('Erro no cadastro: ' + data.error.message);
       } else {
-        // Exibir a mensagem de erro genérica
-        errorMessage.textContent = 'Erro na requisição: ' + response.statusText;
+        alert('Erro na requisição: Não foi possível processar a requisição.');
       }
-      errorMessage.style.display = 'block';
     }
   } catch (error) {
     // Exibir a mensagem de erro
-    errorMessage.textContent = 'Erro na requisição: ' + error.message;
-    errorMessage.style.display = 'block';
+    alert('Erro na requisição: ' + error.message);
   }
 }
-// teste
